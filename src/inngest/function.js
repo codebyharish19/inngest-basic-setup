@@ -1,14 +1,27 @@
+import { connectDB } from "@/utils/db";
 import { inngest } from "./client";
+import { Message } from "@/model/message";
 
 export const helloWorld = inngest.createFunction(
   { id: "hello-world" },
   { event: "test/hello.world" },
   async ({ event, step }) => {
-    await step.sleep("wait-a-moment", "30s");
+    await step.sleep("wait-a-moment", "2s");
 
     const message = `Hello ${event.data.email}!`;
-     
-    
+
+    try {
+      connectDB().then(async () => {
+        const savedMessage = await Message.create({
+          username: event.data.email,
+          message: `Hello ${event.data.email}, welcome!`,
+        });
+      })
+    } catch (error) {
+      console.error("Error connecting to MongoDB:", error);
+    }
+
+
     // ✅ Absolute URL required
     await fetch("http://localhost:3000/api/hello-webhook", {
       method: "POST",
@@ -16,6 +29,7 @@ export const helloWorld = inngest.createFunction(
       body: JSON.stringify({ message }),
     });
 
-    return { message,status:200 };
+
+    return { message, status: 200 };
   },
 );

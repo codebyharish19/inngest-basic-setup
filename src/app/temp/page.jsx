@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import MessageFetcher from '@/component/MessageFetcher';
 
 export default function EmailForm() {
   const [email, setEmail] = useState('');
@@ -25,7 +26,7 @@ export default function EmailForm() {
   };
 
   return (
-    <div className='flex justify-center items-center h-screen bg-violet-300 text-black'>
+    <div className='flex flex-col gap-4 justify-center items-center h-screen bg-violet-300 text-black'>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', width: '300px' }}>
       <label htmlFor="email">Email:</label>
       <input
@@ -40,6 +41,10 @@ export default function EmailForm() {
         Submit
       </button>
     </form>
+
+    <div>
+      <MessageFetcher />
+    </div>
     </div>
   );
 }
