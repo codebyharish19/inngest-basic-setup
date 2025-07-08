@@ -15,7 +15,7 @@ export async function POST(req) {
     name: "test/hello.world",
     data: {
       email
-    },
+        },
   });
 
   console.log("Event sent to Inngest:", event);
