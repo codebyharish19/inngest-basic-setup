@@ -22,12 +22,13 @@ export const helloWorld = inngest.createFunction(
     }
 
 
-    // ✅ Absolute URL required
-    await fetch("http://localhost:3000/api/hello-webhook", {
+    // Use the production URL (Vercel deployment)
+    await fetch("https://inngest-basic-setup.vercel.app/api/hello-webhook", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message }),
     });
+
 
 
     return { message, status: 200 };
